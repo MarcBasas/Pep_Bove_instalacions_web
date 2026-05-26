@@ -1,0 +1,175 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import CircuitLines from '../../components/CircuitLines.astro';
+import PrivacyModal from '../../components/PrivacyModal.astro';
+import { t, type Lang } from '../../i18n';
+
+const lang: Lang = 'es';
+const dict = t(lang);
+const page = dict.contact;
+const c = dict.company;
+
+const mapsQuery = encodeURIComponent(`${c.name}, ${c.address}, ${c.city}, ${c.region}`);
+const mapsSrc = `https://www.google.com/maps?q=${mapsQuery}&output=embed`;
+---
+
+<Base lang={lang} title={page.title} description={page.metaDesc} current="contact" altPath="/contacte">
+  <section class="page-hero section-dark">
+    <div class="container">
+      <span class="eyebrow">{page.hero.eyebrow}</span>
+      <h1>{page.hero.title}</h1>
+      <p class="lead">{page.hero.subtitle}</p>
+    </div>
+  </section>
+
+  <section class="section has-circuit">
+    <CircuitLines tone="light" />
+    <div class="container about-grid">
+      <div>
+        <span class="eyebrow">{page.about.eyebrow}</span>
+        <h2>{page.about.title}</h2>
+      </div>
+      <div>
+        <p class="lead">{page.about.body1}</p>
+        <p>{page.about.body2}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt has-circuit">
+    <CircuitLines tone="light" />
+    <div class="container contact-grid">
+      <aside class="info">
+        <h2>{page.form.title}</h2>
+        <ul class="info-list">
+          <li>
+            <span class="info-icon"><Icon name="phone" size={20} /></span>
+            <div>
+              <span class="info-label">{page.info.phoneLabel}</span>
+              <a href={`tel:${c.phoneRaw}`}>{c.phone}</a>
+            </div>
+          </li>
+          <li>
+            <span class="info-icon"><Icon name="mail" size={20} /></span>
+            <div>
+              <span class="info-label">{page.info.emailLabel}</span>
+              <a href={`mailto:${c.email}`}>{c.email}</a>
+            </div>
+          </li>
+          <li>
+            <span class="info-icon"><Icon name="pin" size={20} /></span>
+            <div>
+              <span class="info-label">{page.info.addressLabel}</span>
+              <span>{c.address}<br />{c.postalCode} {c.city} ({c.region})</span>
+            </div>
+          </li>
+          <li>
+            <span class="info-icon"><Icon name="clock" size={20} /></span>
+            <div>
+              <span class="info-label">{page.info.hoursLabel}</span>
+              <span>{page.info.hoursValue}</span>
+            </div>
+          </li>
+        </ul>
+      </aside>
+
+      <form class="form" method="post" action="#">
+        <div class="row-2">
+          <label>
+            <span>{page.form.name}</span>
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            <span>{page.form.surname}</span>
+            <input type="text" name="surname" />
+          </label>
+        </div>
+        <div class="row-2">
+          <label>
+            <span>{page.form.phone}</span>
+            <input type="tel" name="phone" />
+          </label>
+          <label>
+            <span>{page.form.email}</span>
+            <input type="email" name="email" required />
+          </label>
+        </div>
+        <label>
+          <span>{page.form.subject}</span>
+          <input type="text" name="subject" />
+        </label>
+        <label>
+          <span>{page.form.message}</span>
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+        <label class="consent">
+          <input type="checkbox" name="consent" required />
+          <span>
+            {page.form.consentBefore}<button type="button" class="consent-link" data-open-privacy>{page.form.consentLink}</button>
+          </span>
+        </label>
+        <button class="btn btn-primary" type="submit">
+          {page.form.submit}
+          <Icon name="arrow" size={18} />
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <section class="map-section" data-lenis-prevent>
+    <iframe
+      title="Mapa Pep Bové Instal·lacions"
+      src={mapsSrc}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen
+    ></iframe>
+  </section>
+
+  <PrivacyModal lang={lang} />
+</Base>
+
+<style>
+  .page-hero { padding-block: clamp(4rem, 6vw, 6rem); position: relative; overflow: hidden; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(at 30% 40%, rgba(45, 129, 247, 0.22), transparent 60%); }
+  .page-hero .container { position: relative; max-width: 800px; }
+  .page-hero h1 { color: #fff; margin-bottom: 1rem; }
+  .page-hero .lead { color: #CBD5E1; font-size: 1.15rem; }
+
+  .has-circuit { position: relative; overflow: hidden; isolation: isolate; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+  .lead { font-size: 1.15rem; line-height: 1.7; }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: start; }
+  .info h2 { margin-bottom: 2rem; }
+  .info-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.25rem; }
+  .info-list li { display: flex; align-items: flex-start; gap: 1rem; }
+  .info-icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: var(--color-primary); color: #fff; border-radius: var(--radius-sm); flex-shrink: 0; }
+  .info-list div { display: flex; flex-direction: column; gap: 0.15rem; }
+  .info-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); font-weight: 600; }
+  .info-list a, .info-list span { color: var(--color-text); font-weight: 500; }
+
+  .form { background: #fff; padding: 2.5rem; border-radius: var(--radius-md); box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 1.25rem; }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .form label { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--color-text); text-transform: uppercase; letter-spacing: 0.05em; }
+  .form input, .form textarea { font-family: var(--font-body); font-size: 1rem; font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--color-text); padding: 0.75rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); transition: border-color var(--transition), box-shadow var(--transition); background: #fff; }
+  .form input:focus, .form textarea:focus { outline: 0; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(45, 129, 247, 0.15); }
+  .form textarea { resize: vertical; min-height: 120px; }
+  .consent { flex-direction: row; align-items: flex-start; align-self: flex-start; text-align: left; gap: 0.6rem; text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 0.9rem; color: var(--color-text-soft); }
+  .consent input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--color-primary); padding: 0; flex-shrink: 0; }
+  .consent-link { background: none; border: 0; padding: 0; font: inherit; color: var(--color-primary); text-decoration: underline; cursor: pointer; }
+  .consent-link:hover { color: var(--color-primary-dark); }
+  .form button { align-self: flex-start; }
+
+  .map-section { height: 420px; overflow: hidden; }
+  .map-section iframe { width: 100%; height: 100%; border: 0; display: block; filter: grayscale(20%); }
+
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .row-2 { grid-template-columns: 1fr; }
+    .form { padding: 1.75rem; }
+  }
+</style>

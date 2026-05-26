@@ -1,0 +1,119 @@
+---
+import { t, type Lang } from '../i18n';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const dict = t(lang);
+const p = (dict.contact as any).privacy;
+---
+
+<dialog id="privacy-modal" class="privacy-modal" aria-labelledby="privacy-modal-title">
+  <div class="privacy-modal-inner">
+    <header class="privacy-modal-header">
+      <h2 id="privacy-modal-title">{p.title}</h2>
+      <button type="button" class="privacy-modal-close" data-close-privacy aria-label={p.close}>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+    <div class="privacy-modal-body" set:html={p.html} />
+  </div>
+</dialog>
+
+<style>
+  .privacy-modal {
+    border: 0;
+    border-radius: var(--radius-md);
+    padding: 0;
+    width: min(720px, calc(100% - 2rem));
+    max-height: calc(100vh - 4rem);
+    box-shadow: var(--shadow-lg);
+    background: #fff;
+    color: var(--color-text);
+  }
+
+  .privacy-modal::backdrop {
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(2px);
+  }
+
+  .privacy-modal-inner {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 4rem);
+  }
+
+  .privacy-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 1.75rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .privacy-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .privacy-modal-close {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0.4rem;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .privacy-modal-close:hover {
+    background: var(--color-bg-alt);
+    color: var(--color-text);
+  }
+
+  .privacy-modal-body {
+    padding: 1.25rem 1.75rem 1.75rem;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-text-soft);
+  }
+
+  .privacy-modal-body :global(h3) {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .privacy-modal-body :global(p) {
+    margin: 0 0 0.85em;
+  }
+
+  .privacy-modal-body :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  const modal = document.getElementById('privacy-modal') as HTMLDialogElement | null;
+  if (modal) {
+    document.querySelectorAll<HTMLElement>('[data-open-privacy]').forEach((trigger) => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.showModal();
+      });
+    });
+    modal.querySelectorAll<HTMLElement>('[data-close-privacy]').forEach((btn) => {
+      btn.addEventListener('click', () => modal.close());
+    });
+    // Click on backdrop closes
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.close();
+    });
+  }
+</script>

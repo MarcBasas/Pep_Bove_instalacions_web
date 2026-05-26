@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { type Lang, altHomePath } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  current?: 'home' | 'services' | 'projects' | 'contact';
+  altPath?: string;
+}
+
+const { lang, title, description, current, altPath } = Astro.props;
+const finalAltPath = altPath ?? altHomePath(lang);
+---
+
+<!doctype html>
+<html lang={lang === 'ca' ? 'ca-ES' : 'es-ES'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#2D81F7" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'ca' ? 'ca_ES' : 'es_ES'} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link rel="alternate" hreflang="ca" href={`https://www.pepboveinstallacions.com${lang === 'ca' ? Astro.url.pathname : finalAltPath}`} />
+    <link rel="alternate" hreflang="es" href={`https://www.pepboveinstallacions.com${lang === 'es' ? Astro.url.pathname : finalAltPath}`} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header lang={lang} current={current} altPath={finalAltPath} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <script>
+      import Lenis from 'lenis';
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion) {
+        const lenis = new Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          touchMultiplier: 1.5,
+        });
+
+        const raf = (time: number) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+
+        document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => {
+          link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            lenis.scrollTo(target as HTMLElement, { offset: 0 });
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  main { flex: 1; }
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    z-index: 100;
+  }
+  .skip-link:focus { top: 0; }
+</style>

@@ -1,0 +1,140 @@
+---
+interface Props {
+  tone?: 'light' | 'dark' | 'auto';
+}
+
+const { tone = 'auto' } = Astro.props;
+
+const paths = [
+  // Spines verticales principales (entran y salen por la misma X → continuidad entre secciones)
+  'M 200 -10 L 200 200 L 360 200 L 360 380 L 200 380 L 200 610',
+  'M 600 -10 L 600 140 L 740 140 L 740 320 L 600 320 L 600 480 L 720 480 L 720 540 L 600 540 L 600 610',
+  'M 1000 -10 L 1000 240 L 1140 240 L 1140 420 L 1000 420 L 1000 610',
+
+  // Verticales paralelos cercanos
+  'M 220 -10 L 220 80 L 380 80 L 380 220 L 220 220 L 220 610',
+  'M 1020 -10 L 1020 80 L 1160 80 L 1160 260 L 1020 260 L 1020 610',
+
+  // Conectores horizontales entre spines
+  'M 200 140 L 600 140',
+  'M 740 240 L 1000 240',
+  'M 360 380 L 600 380',
+  'M 720 480 L 1000 480',
+
+  // Entradas laterales por la izquierda (par paralelo)
+  'M -10 440 L 200 440',
+  'M -10 460 L 200 460',
+
+  // Salidas laterales por la derecha (par paralelo)
+  'M 1140 320 L 1210 320',
+  'M 1140 340 L 1210 340',
+];
+---
+
+<div class="circuit-lines" data-tone={tone} aria-hidden="true">
+  <svg class="layer-base" viewBox="0 0 1200 600" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+    {paths.map((d) => <path d={d} vector-effect="non-scaling-stroke" />)}
+  </svg>
+  <svg class="layer-edge" viewBox="0 0 1200 600" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+    {paths.map((d) => <path d={d} vector-effect="non-scaling-stroke" />)}
+  </svg>
+</div>
+
+<style>
+  .circuit-lines {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .circuit-lines svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .layer-base { color: rgba(100, 116, 139, 0.16); }
+  .circuit-lines[data-tone='dark'] .layer-base { color: rgba(203, 213, 225, 0.12); }
+  .circuit-lines[data-tone='light'] .layer-base { color: rgba(71, 85, 105, 0.14); }
+
+  .layer-edge { color: var(--color-primary); opacity: 0.55; }
+  .circuit-lines[data-tone='dark'] .layer-edge { color: var(--color-primary-light); opacity: 0.7; }
+
+  .layer-base {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 var(--reveal, 100%),
+      transparent calc(var(--reveal, 100%) + 6%)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 var(--reveal, 100%),
+      transparent calc(var(--reveal, 100%) + 6%)
+    );
+  }
+
+  .layer-edge {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent calc(var(--reveal, 100%) - 14%),
+      rgba(0, 0, 0, 0.35) calc(var(--reveal, 100%) - 6%),
+      #000 calc(var(--reveal, 100%) - 1%),
+      rgba(0, 0, 0, 0.3) var(--reveal, 100%),
+      transparent calc(var(--reveal, 100%) + 2%)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent calc(var(--reveal, 100%) - 14%),
+      rgba(0, 0, 0, 0.35) calc(var(--reveal, 100%) - 6%),
+      #000 calc(var(--reveal, 100%) - 1%),
+      rgba(0, 0, 0, 0.3) var(--reveal, 100%),
+      transparent calc(var(--reveal, 100%) + 2%)
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .layer-base {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .layer-edge { display: none; }
+  }
+</style>
+
+<script>
+  const targets = document.querySelectorAll<HTMLElement>('.circuit-lines');
+
+  if (targets.length) {
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const revealLine = window.scrollY + window.innerHeight * 0.75;
+      targets.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const top = rect.top + window.scrollY;
+        const height = rect.height || 1;
+        const pct = Math.max(0, Math.min(1, (revealLine - top) / height));
+        el.style.setProperty('--reveal', `${(pct * 100).toFixed(2)}%`);
+      });
+    };
+
+    const schedule = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('load', schedule);
+    schedule();
+  }
+</script>

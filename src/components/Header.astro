@@ -1,0 +1,341 @@
+---
+import { t, routes, altLang, type Lang } from '../i18n';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+  current?: 'home' | 'services' | 'projects' | 'contact';
+  altPath: string;
+}
+
+const { lang, current, altPath } = Astro.props;
+const dict = t(lang);
+const r = routes[lang];
+const other = altLang(lang);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href={r.home} aria-label={dict.company.name}>
+      <span class="brand-mark">PB</span>
+      <span class="brand-text">
+        <span class="brand-name">Pep Bové</span>
+        <span class="brand-sub">Instal·lacions</span>
+      </span>
+    </a>
+
+    <nav class="primary-nav" aria-label="primary">
+      <a href={r.home} class:list={[{ active: current === 'home' }]}>{dict.nav.home}</a>
+      <a href={r.services} class:list={[{ active: current === 'services' }]}>{dict.nav.services}</a>
+      <a href={r.projects} class:list={[{ active: current === 'projects' }]}>{dict.nav.projects}</a>
+      <a href={r.contact} class:list={[{ active: current === 'contact' }]}>{dict.nav.contact}</a>
+      <span class="nav-indicator" aria-hidden="true"></span>
+    </nav>
+
+    <div class="header-actions">
+      <a class="phone-link" href={`tel:${dict.company.phoneRaw}`}>
+        <Icon name="phone" size={18} />
+        <span>{dict.company.phone}</span>
+      </a>
+      <a class="lang-switch" href={altPath} hreflang={other} aria-label={`Idioma: ${other.toUpperCase()}`}>
+        {other.toUpperCase()}
+      </a>
+      <a class="btn btn-primary cta-desktop" href={r.contact}>{dict.nav.quote}</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">
+        <Icon name="menu" size={26} />
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav" hidden>
+    <a href={r.home}>{dict.nav.home}</a>
+    <a href={r.services}>{dict.nav.services}</a>
+    <a href={r.projects}>{dict.nav.projects}</a>
+    <a href={r.contact}>{dict.nav.contact}</a>
+    <a class="btn btn-primary" href={r.contact}>{dict.nav.quote}</a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 76px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--color-text);
+    margin-right: auto;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--color-primary);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-sm);
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+  }
+
+  .brand-sub {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .primary-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .primary-nav a {
+    position: relative;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: var(--color-text-soft);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition);
+  }
+
+  .primary-nav a:hover { color: var(--color-primary); }
+
+  .primary-nav a.active {
+    color: var(--color-primary);
+  }
+
+  .nav-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--color-primary);
+    border-radius: 2px;
+    opacity: 0;
+    transform: translateX(0);
+    pointer-events: none;
+    will-change: transform, width;
+  }
+
+  .nav-indicator.is-ready {
+    transition:
+      transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.25s ease;
+  }
+
+  .primary-nav.has-indicator .nav-indicator {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-indicator.is-ready {
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .phone-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.9rem;
+  }
+
+  .phone-link:hover { color: var(--color-primary); }
+
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--color-text-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .lang-switch:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.5rem 1.5rem;
+    background: #fff;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .mobile-nav a {
+    padding: 0.85rem 0;
+    color: var(--color-text);
+    font-weight: 500;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-nav a.btn {
+    border-bottom: 0;
+    margin-top: 0.75rem;
+    justify-content: center;
+  }
+
+  .mobile-nav[data-open="true"] {
+    display: flex;
+  }
+
+  @media (max-width: 992px) {
+    .primary-nav { display: none; }
+    .cta-desktop { display: none; }
+    .menu-toggle { display: inline-flex; }
+  }
+
+  @media (max-width: 600px) {
+    .phone-link span { display: none; }
+    .brand-sub { display: none; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mobileNav');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const open = nav.dataset.open === 'true';
+      nav.dataset.open = String(!open);
+      nav.hidden = open;
+      toggle.setAttribute('aria-expanded', String(!open));
+    });
+  }
+
+  const primaryNav = document.querySelector<HTMLElement>('.primary-nav');
+  if (primaryNav) {
+    const indicator = primaryNav.querySelector<HTMLElement>('.nav-indicator');
+    const links = Array.from(primaryNav.querySelectorAll<HTMLAnchorElement>('a'));
+    const activeLink = primaryNav.querySelector<HTMLAnchorElement>('a.active');
+
+    if (indicator && links.length) {
+      const placeUnder = (link: HTMLAnchorElement) => {
+        const linkRect = link.getBoundingClientRect();
+        const navRect = primaryNav.getBoundingClientRect();
+        const styles = getComputedStyle(link);
+        const padL = parseFloat(styles.paddingLeft) || 0;
+        const padR = parseFloat(styles.paddingRight) || 0;
+        const left = linkRect.left - navRect.left + padL;
+        const width = Math.max(0, linkRect.width - padL - padR);
+        indicator.style.transform = `translateX(${left}px)`;
+        indicator.style.width = `${width}px`;
+      };
+
+      const showActive = () => {
+        if (activeLink) {
+          placeUnder(activeLink);
+          primaryNav.classList.add('has-indicator');
+        } else {
+          primaryNav.classList.remove('has-indicator');
+        }
+      };
+
+      const init = () => {
+        if (activeLink) {
+          placeUnder(activeLink);
+          primaryNav.classList.add('has-indicator');
+        }
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            indicator.classList.add('is-ready');
+          });
+        });
+      };
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(init);
+      } else {
+        requestAnimationFrame(init);
+      }
+      window.addEventListener('load', () => activeLink && placeUnder(activeLink));
+      window.addEventListener('resize', () => activeLink && placeUnder(activeLink));
+
+      links.forEach((link) => {
+        link.addEventListener('mouseenter', () => {
+          primaryNav.classList.add('has-indicator');
+          placeUnder(link);
+        });
+        link.addEventListener('focus', () => {
+          primaryNav.classList.add('has-indicator');
+          placeUnder(link);
+        });
+        link.addEventListener('click', () => {
+          indicator.classList.remove('is-ready');
+        });
+      });
+
+      primaryNav.addEventListener('mouseleave', showActive);
+      primaryNav.addEventListener('focusout', (e) => {
+        const next = e.relatedTarget as Node | null;
+        if (!next || !primaryNav.contains(next)) showActive();
+      });
+    }
+  }
+</script>

@@ -1,0 +1,209 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import CircuitLines from '../../components/CircuitLines.astro';
+import { t, routes, type Lang } from '../../i18n';
+
+const lang: Lang = 'es';
+const dict = t(lang);
+const r = routes[lang];
+const home = dict.home;
+
+const featuredImages = [
+  '/images/services/electricitat.webp',
+  '/images/services/energia_renovables.webp',
+  '/images/services/lampisteria_agua.webp',
+  '/images/services/climatizacion.webp',
+  '/images/services/gas_petroleo.webp',
+  '/images/services/mantenimiento.webp',
+];
+---
+
+<Base lang={lang} title={home.title} description={home.metaDesc} current="home" altPath="/">
+  <section class="hero section-dark">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-header">
+        <span class="eyebrow">{home.hero.eyebrow}</span>
+        <h1>{home.hero.title}</h1>
+      </div>
+      <div class="hero-copy">
+        <p class="hero-sub">{home.hero.subtitle}</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={r.contact}>
+            {home.hero.ctaPrimary}
+            <Icon name="arrow" size={18} />
+          </a>
+          <a class="btn btn-outline" href={r.services}>{home.hero.ctaSecondary}</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        {home.stats.map((s) => (
+          <div class="stat">
+            <span class="stat-value">{s.value}</span>
+            <span class="stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section has-circuit">
+    <CircuitLines tone="light" />
+    <div class="container intro-grid">
+      <div>
+        <span class="eyebrow">{home.intro.eyebrow}</span>
+        <h2>{home.intro.title}</h2>
+      </div>
+      <div>
+        <p class="lead">{home.intro.body}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">{home.services.eyebrow}</span>
+        <h2>{home.services.title}</h2>
+        <p class="lead">{home.services.subtitle}</p>
+      </div>
+      <div class="grid grid-3 services-grid">
+        {home.services.items.map((item, i) => (
+          <a class="service-card-featured" href={r.services}>
+            <div class="card-bg" aria-hidden="true" style={`background-image: url('${featuredImages[i]}')`}></div>
+            <div class="card-overlay" aria-hidden="true"></div>
+            <h3>{item.title}</h3>
+            <div class="card-reveal">
+              <p>{item.body}</p>
+              <span class="card-cta">
+                {dict.nav.services} <Icon name="arrow" size={16} />
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark has-circuit">
+    <CircuitLines tone="dark" />
+    <div class="container renewables">
+      <div class="renewables-intro">
+        <span class="eyebrow">{home.renewables.eyebrow}</span>
+        <h2>{home.renewables.title}</h2>
+        <p>{home.renewables.body}</p>
+      </div>
+      <div class="renewables-grid">
+        {home.renewables.items.map((item, i) => (
+          <article class="renewable-card" tabindex="0">
+            <div class="renewable-card-inner">
+              <div class="renewable-front">
+                <h3>{item.title}</h3>
+              </div>
+              <div class="renewable-back">
+                <p>{item.body}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container cta-inner">
+      <div>
+        <h2>{home.cta.title}</h2>
+        <p>{home.cta.body}</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href={r.contact}>{home.cta.button}</a>
+        <a class="btn btn-outline" href={`tel:${dict.company.phoneRaw}`}>
+          <Icon name="phone" size={18} />
+          {dict.company.phone}
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { position: relative; padding-block: clamp(4rem, 8vw, 8rem); overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(at 80% 20%, rgba(45, 129, 247, 0.35), transparent 55%), radial-gradient(at 20% 80%, rgba(45, 129, 247, 0.15), transparent 55%); }
+  .hero-bg::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(to bottom, black, transparent 80%); }
+  .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.4fr 1fr; grid-template-areas: "header header" "copy stats"; align-items: start; column-gap: 4rem; row-gap: 2.75rem; }
+  .hero-header { grid-area: header; }
+  .hero-copy { grid-area: copy; }
+  .hero-stats { grid-area: stats; align-self: center; margin-top: -2rem; }
+  .hero-header .eyebrow { margin-bottom: 0.75rem; }
+  .hero-header h1 { margin: 0; color: #fff; font-size: clamp(2.75rem, 5.5vw, 5rem); line-height: 1.04; }
+  .hero-sub { font-size: clamp(1.05rem, 1.5vw + 0.5rem, 1.25rem); color: #CBD5E1; max-width: 540px; margin-bottom: 2rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 2rem; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); backdrop-filter: blur(10px); }
+  .stat { display: flex; flex-direction: column; gap: 0.25rem; }
+  .stat-value { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 3vw + 1rem, 3rem); color: var(--color-primary-light); line-height: 1; }
+  .stat-label { color: #94A3B8; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .has-circuit { position: relative; overflow: hidden; isolation: isolate; }
+
+  .intro-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+  .lead { font-size: 1.15rem; color: var(--color-text-soft); line-height: 1.7; }
+
+  .section-heading { max-width: 720px; margin: 0 auto 3rem; text-align: center; }
+  .services-grid { margin-top: 1rem; }
+
+  .service-card-featured { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 3; min-height: 220px; max-width: 360px; margin-inline: auto; width: 100%; border-radius: var(--radius-md); border: 1px solid var(--color-border); color: #fff; text-decoration: none; isolation: isolate; transition: transform var(--transition), box-shadow var(--transition); }
+  .service-card-featured:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); color: #fff; }
+  .service-card-featured .card-bg { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 0; filter: saturate(1.05); transition: filter 0.55s ease; }
+  .service-card-featured .card-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.55) 100%); transition: background 0.55s ease; }
+  .service-card-featured h3 { position: absolute; left: 1.25rem; right: 1.25rem; top: 50%; z-index: 2; margin: 0; text-align: center; color: #fff; font-size: clamp(1.8rem, 1.8vw + 0.9rem, 2.25rem); line-height: 1.15; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5); transform: translateY(-50%); transition: top 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+  .service-card-featured .card-reveal { position: absolute; left: 1.25rem; right: 1.25rem; bottom: 1.75rem; z-index: 2; text-align: center; opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease 0.1s, transform 0.45s ease 0.1s; pointer-events: none; }
+  .service-card-featured .card-reveal p { margin: 0 0 1.4rem; color: rgba(255, 255, 255, 0.95); font-size: 1.12rem; line-height: 1.5; }
+  .service-card-featured .card-cta { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: var(--color-primary); border-radius: var(--radius-sm); color: #fff; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.02em; }
+  .service-card-featured:hover .card-bg { filter: saturate(0.1); }
+  .service-card-featured:hover .card-overlay { background: linear-gradient(180deg, rgba(15, 23, 42, 0.55) 0%, rgba(15, 23, 42, 0.82) 100%); }
+  .service-card-featured:hover h3 { top: 2.5rem; transform: translateY(0); }
+  .service-card-featured:hover .card-reveal { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .renewables { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+  .renewables-intro p { color: #CBD5E1; font-size: 1.05rem; line-height: 1.7; }
+  .renewables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .renewable-card { position: relative; min-height: 240px; perspective: 1200px; background: transparent; border: none; padding: 0; outline: none; }
+  .renewable-card-inner { position: relative; width: 100%; height: 100%; min-height: 240px; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+  .renewable-card:hover .renewable-card-inner,
+  .renewable-card:focus-visible .renewable-card-inner { transform: rotateY(180deg); }
+  .renewable-front,
+  .renewable-back { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 1.75rem; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-md); backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: border-color var(--transition), background var(--transition); }
+  .renewable-front { align-items: center; justify-content: center; text-align: center; }
+  .renewable-card:hover .renewable-front,
+  .renewable-card:focus-visible .renewable-front { border-color: var(--color-primary); }
+  .renewable-front h3 { color: #fff; margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 2.6vw + 0.6rem, 2.75rem); line-height: 1.1; letter-spacing: -0.01em; }
+  .renewable-back { transform: rotateY(180deg); border-color: rgba(45, 129, 247, 0.45); background: rgba(30, 64, 175, 0.95); align-items: center; justify-content: center; text-align: center; }
+  .renewable-back p { color: #E2E8F0; margin: 0; font-size: 1rem; line-height: 1.6; }
+  @media (hover: none) {
+    .renewable-card-inner { transform: none !important; }
+    .renewable-front { display: none; }
+    .renewable-back { position: relative; inset: auto; transform: none; }
+  }
+
+  .cta-section { background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%); color: #fff; padding-block: 4rem; }
+  .cta-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; }
+  .cta-inner h2 { color: #fff; margin-bottom: 0.5rem; }
+  .cta-inner p { color: rgba(255, 255, 255, 0.85); margin: 0; font-size: 1.05rem; max-width: 540px; }
+  .cta-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .cta-section .btn-primary { background: #fff; color: var(--color-primary-dark); }
+  .cta-section .btn-primary:hover { background: var(--color-text); color: #fff; }
+  .cta-section .btn-outline { border-color: #fff; color: #fff; }
+  .cta-section .btn-outline:hover { background: #fff; color: var(--color-primary-dark); }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; grid-template-areas: "header" "copy" "stats"; row-gap: 2rem; }
+    .intro-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .renewables { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  @media (max-width: 540px) {
+    .hero-stats { grid-template-columns: 1fr; padding: 1.5rem; }
+    .renewables-grid { grid-template-columns: 1fr; }
+  }
+</style>

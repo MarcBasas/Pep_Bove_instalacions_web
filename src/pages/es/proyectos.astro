@@ -1,0 +1,120 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import CircuitLines from '../../components/CircuitLines.astro';
+import { t, routes, type Lang } from '../../i18n';
+
+const lang: Lang = 'es';
+const dict = t(lang);
+const r = routes[lang];
+const page = dict.projects;
+---
+
+<Base lang={lang} title={page.title} description={page.metaDesc} current="projects" altPath="/projectes">
+  <section class="page-hero section-dark">
+    <div class="container">
+      <span class="eyebrow">{page.hero.eyebrow}</span>
+      <h1>{page.hero.title}</h1>
+      <p class="lead">{page.hero.subtitle}</p>
+    </div>
+  </section>
+
+  <section class="section has-circuit">
+    <CircuitLines tone="light" />
+    <div class="container">
+      <div class="filters" role="tablist">
+        <button class="filter active" data-filter="all" role="tab" aria-selected="true">{page.categories.all}</button>
+        <button class="filter" data-filter="electric" role="tab">{page.categories.electric}</button>
+        <button class="filter" data-filter="renewables" role="tab">{page.categories.renewables}</button>
+        <button class="filter" data-filter="plumbing" role="tab">{page.categories.plumbing}</button>
+        <button class="filter" data-filter="climate" role="tab">{page.categories.climate}</button>
+      </div>
+
+      <div class="gallery">
+        {page.items.map((item) => (
+          <article class="card" data-category={item.category}>
+            <div class="card-media">
+              <img src={item.image} alt={item.title} loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-image')" />
+              <div class="card-placeholder" aria-hidden="true">
+                <Icon name="bolt" size={48} />
+              </div>
+            </div>
+            <div class="card-body">
+              <span class="card-cat">{page.categories[item.category]}</span>
+              <h3>{item.title}</h3>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <p class="placeholder-note">
+        <Icon name="check" size={16} />
+        <span>Galería con imágenes de muestra. Sustituir por fotos reales del cliente.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="container cta-strip-inner">
+      <h2>{dict.home.cta.title}</h2>
+      <a class="btn btn-primary" href={r.contact}>{dict.home.cta.button}</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-hero { padding-block: clamp(4rem, 6vw, 6rem); position: relative; overflow: hidden; isolation: isolate; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(at 70% 40%, rgba(45, 129, 247, 0.22), transparent 60%); }
+  .page-hero .container { position: relative; max-width: 800px; }
+  .page-hero h1 { color: #fff; margin-bottom: 1rem; }
+  .page-hero .lead { color: #CBD5E1; font-size: 1.15rem; }
+
+  .has-circuit { position: relative; overflow: hidden; isolation: isolate; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); }
+  .filter { padding: 0.55rem 1.1rem; background: transparent; border: 1px solid var(--color-border); border-radius: 999px; font-family: var(--font-body); font-weight: 500; color: var(--color-text-soft); cursor: pointer; transition: all var(--transition); }
+  .filter:hover { border-color: var(--color-primary); color: var(--color-primary); }
+  .filter.active { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .card { border-radius: var(--radius-md); overflow: hidden; background: #fff; border: 1px solid var(--color-border); transition: transform var(--transition), box-shadow var(--transition); }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .card[hidden] { display: none; }
+  .card-media { position: relative; aspect-ratio: 4 / 3; background: linear-gradient(135deg, var(--color-bg-alt), #E2E8F0); overflow: hidden; }
+  .card-media img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+  .card-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--color-primary); opacity: 0.4; }
+  .card-media.no-image { background: linear-gradient(135deg, rgba(45, 129, 247, 0.08), rgba(45, 129, 247, 0.02)); }
+  .card-body { padding: 1.25rem; }
+  .card-cat { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: 0.5rem; }
+  .card h3 { margin: 0; font-size: 1.15rem; }
+
+  .placeholder-note { margin-top: 2.5rem; padding: 0.85rem 1.25rem; background: rgba(245, 158, 11, 0.08); color: #92400E; border-left: 3px solid var(--color-accent); border-radius: var(--radius-sm); display: flex; align-items: center; gap: 0.65rem; font-size: 0.9rem; }
+  .placeholder-note :global(svg) { color: var(--color-accent); flex-shrink: 0; }
+
+  .cta-strip { background: var(--color-primary); padding: 3rem 0; color: #fff; }
+  .cta-strip-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; }
+  .cta-strip h2 { color: #fff; margin: 0; font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem); }
+  .cta-strip .btn-primary { background: #fff; color: var(--color-primary-dark); }
+  .cta-strip .btn-primary:hover { background: var(--color-text); color: #fff; }
+</style>
+
+<script>
+  const filters = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const cards = document.querySelectorAll<HTMLElement>('.card');
+
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filters.forEach((b) => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      const filter = btn.dataset.filter;
+      cards.forEach((card) => {
+        const cat = card.dataset.category;
+        card.hidden = filter !== 'all' && cat !== filter;
+      });
+    });
+  });
+</script>

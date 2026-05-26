@@ -1,0 +1,127 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import CircuitLines from '../../components/CircuitLines.astro';
+import { t, routes, type Lang } from '../../i18n';
+
+const lang: Lang = 'es';
+const dict = t(lang);
+const r = routes[lang];
+const page = dict.services;
+
+const blockImages = [
+  '/images/services/electricitat.webp',
+  '/images/services/energia_renovables.webp',
+  '/images/services/lampisteria_agua.webp',
+  '/images/services/climatizacion.webp',
+  '/images/services/gas_petroleo.webp',
+  '/images/services/mantenimiento.webp',
+];
+---
+
+<Base lang={lang} title={page.title} description={page.metaDesc} current="services" altPath="/serveis">
+  <section class="page-hero section-dark">
+    <div class="container">
+      <span class="eyebrow">{page.hero.eyebrow}</span>
+      <h1>{page.hero.title}</h1>
+      <p class="lead">{page.hero.subtitle}</p>
+    </div>
+  </section>
+
+  <section class="section has-circuit">
+    <CircuitLines tone="light" />
+    <div class="container service-blocks">
+      {page.blocks.map((block, i) => (
+        <article class:list={['service-block', i % 2 === 0 ? 'left' : 'right']}>
+          {blockImages[i] && (
+            <div class:list={['block-image', i === 2 && 'flip-x']} aria-hidden="true">
+              <img src={blockImages[i]} alt="" loading="lazy" decoding="async" />
+            </div>
+          )}
+          <div class="block-num" aria-hidden="true">0{i + 1}</div>
+          <div class="block-content">
+            <h2>{block.title}</h2>
+            <p>{block.body}</p>
+            <ul class="bullets">
+              {block.bullets.map((b) => (
+                <li>
+                  <Icon name="check" size={18} />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container credentials">
+      <div class="credentials-header">
+        <span class="eyebrow">{page.credentials.title}</span>
+        <h2>{page.credentials.title}</h2>
+        <p class="lead">{page.credentials.body}</p>
+      </div>
+      <ul class="credentials-list">
+        {page.credentials.items.map((item) => (
+          <li>
+            <Icon name="check" size={20} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="container cta-strip-inner">
+      <h2>{dict.home.cta.title}</h2>
+      <a class="btn btn-primary" href={r.contact}>{dict.home.cta.button}</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-hero { padding-block: clamp(4rem, 6vw, 6rem); position: relative; overflow: hidden; isolation: isolate; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(at 30% 30%, rgba(45, 129, 247, 0.25), transparent 60%); }
+  .page-hero .container { position: relative; max-width: 800px; }
+  .page-hero h1 { color: #fff; margin-bottom: 1rem; }
+  .page-hero .lead { color: #CBD5E1; font-size: 1.15rem; }
+
+  .has-circuit { position: relative; overflow: hidden; isolation: isolate; }
+
+  .service-blocks { display: flex; flex-direction: column; gap: 4rem; }
+  .service-block { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; padding-block: 2rem; border-top: 1px solid var(--color-border); position: relative; overflow: hidden; min-height: clamp(360px, 28vw, 440px); align-items: center; background: var(--color-bg); }
+  .service-block:first-child { border-top: 0; padding-top: 0; }
+  .block-num, .block-content { position: relative; z-index: 1; }
+  .block-content { max-width: 62ch; }
+  .block-image { position: absolute; top: 0; right: 0; bottom: 0; width: clamp(280px, 50%, 620px); pointer-events: none; z-index: 0; -webkit-mask-image: linear-gradient(to left, #000 12%, transparent 92%); mask-image: linear-gradient(to left, #000 12%, transparent 92%); }
+  .block-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .block-image.flip-x img { transform: scaleX(-1); }
+  .block-num { font-family: var(--font-display); font-weight: 700; font-size: clamp(3rem, 5vw, 4.5rem); color: var(--color-primary); line-height: 1; letter-spacing: -0.02em; }
+  .block-content h2 { margin-top: 0; margin-bottom: 1rem; font-size: clamp(1.75rem, 2.5vw + 0.5rem, 2.25rem); }
+  .block-content p { font-size: 1.05rem; margin-bottom: 1.5rem; }
+
+  .bullets { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.65rem; }
+  .bullets li { display: flex; align-items: flex-start; gap: 0.65rem; color: var(--color-text-soft); font-size: 0.97rem; line-height: 1.5; }
+  .bullets li :global(svg) { flex-shrink: 0; color: var(--color-primary); margin-top: 2px; }
+
+  .credentials { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+  .credentials-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; }
+  .credentials-list li { display: flex; align-items: center; gap: 0.85rem; padding: 1rem 1.25rem; background: #fff; border-radius: var(--radius-md); border-left: 3px solid var(--color-primary); color: var(--color-text); font-weight: 500; box-shadow: var(--shadow-sm); }
+  .credentials-list li :global(svg) { color: var(--color-primary); flex-shrink: 0; }
+
+  .cta-strip { background: var(--color-primary); padding: 3rem 0; color: #fff; }
+  .cta-strip-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; }
+  .cta-strip h2 { color: #fff; margin: 0; font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem); }
+  .cta-strip .btn-primary { background: #fff; color: var(--color-primary-dark); }
+  .cta-strip .btn-primary:hover { background: var(--color-text); color: #fff; }
+
+  @media (max-width: 800px) {
+    .service-block { grid-template-columns: 1fr; gap: 0.5rem; min-height: 0; align-items: stretch; }
+    .block-content { max-width: none; }
+    .block-image { display: none; }
+    .credentials { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

@@ -1,0 +1,208 @@
+---
+import { t, routes, type Lang } from '../i18n';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const dict = t(lang);
+const r = routes[lang];
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col footer-brand">
+      <div class="brand-mark">PB</div>
+      <p class="brand-title">Pep Bové Instal·lacions</p>
+      <p class="brand-tag">{dict.footer.tagline}</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>{dict.footer.contact}</h4>
+      <ul>
+        <li>
+          <Icon name="phone" size={16} />
+          <a href={`tel:${dict.company.phoneRaw}`}>{dict.company.phone}</a>
+        </li>
+        <li>
+          <Icon name="mail" size={16} />
+          <a href={`mailto:${dict.company.email}`}>{dict.company.email}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>{dict.footer.address}</h4>
+      <p class="address">
+        <Icon name="pin" size={16} />
+        <span>
+          {dict.company.address}<br />
+          {dict.company.postalCode} {dict.company.city} ({dict.company.region})
+        </span>
+      </p>
+      <p class="hours">
+        <Icon name="clock" size={16} />
+        <span>{dict.footer.hoursValue}</span>
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>{dict.nav.home}</h4>
+      <ul class="links">
+        <li><a href={r.home}>{dict.nav.home}</a></li>
+        <li><a href={r.services}>{dict.nav.services}</a></li>
+        <li><a href={r.projects}>{dict.nav.projects}</a></li>
+        <li><a href={r.contact}>{dict.nav.contact}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>&copy; {year} {dict.company.legalName}. {dict.footer.rights}</p>
+      <ul class="legal">
+        <li><a href="#">{dict.footer.legal}</a></li>
+        <li><a href="#">{dict.footer.privacy}</a></li>
+        <li><a href="#">{dict.footer.cookies}</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-bg-dark);
+    color: #CBD5E1;
+    margin-top: auto;
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.2fr 1fr;
+    gap: 3rem;
+    padding-block: 4rem 2.5rem;
+  }
+
+  .footer-col h4 {
+    color: #fff;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-primary);
+    display: inline-block;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-col li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #CBD5E1;
+  }
+
+  .footer-col a {
+    color: #CBD5E1;
+    transition: color var(--transition);
+  }
+
+  .footer-col a:hover {
+    color: var(--color-primary-light);
+  }
+
+  .address, .hours {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: #CBD5E1;
+    margin: 0 0 0.75rem;
+    line-height: 1.55;
+  }
+
+  .footer-brand .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: var(--color-primary);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.25rem;
+  }
+
+  .brand-title {
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+  }
+
+  .brand-tag {
+    color: #94A3B8;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .footer-bottom {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 1.25rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-bottom-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer-bottom p {
+    color: #94A3B8;
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  .legal {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 900px) {
+    .footer-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      padding-block: 3rem 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,256 @@
+{
+  "lang": "es",
+  "company": {
+    "name": "Pep Bové Instal·lacions",
+    "legalName": "BOMAR INSTAL·LADOR, S.L.",
+    "phone": "938 03 07 86",
+    "phoneRaw": "+34938030786",
+    "email": "info@pepboveinstallacions.com",
+    "address": "C/ Sant Francesc d'Assís, 25",
+    "postalCode": "08700",
+    "city": "Igualada",
+    "region": "Barcelona",
+    "since": "1991"
+  },
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "projects": "Proyectos",
+    "contact": "Contacto",
+    "quote": "Pedir presupuesto"
+  },
+  "footer": {
+    "tagline": "Instaladores autorizados en Igualada desde 1991.",
+    "rights": "Todos los derechos reservados.",
+    "legal": "Aviso legal",
+    "privacy": "Política de privacidad",
+    "cookies": "Política de cookies",
+    "address": "Dirección",
+    "contact": "Contacto",
+    "hours": "Horario",
+    "hoursValue": "Lunes a Viernes · 8:00 – 18:00"
+  },
+  "home": {
+    "title": "Instalaciones eléctricas en Igualada | Pep Bové",
+    "metaDesc": "Empresa de instalaciones eléctricas, energías renovables, fontanería y climatización en Igualada. Más de 30 años de experiencia.",
+    "hero": {
+      "eyebrow": "Instaladores autorizados · Igualada",
+      "title": "Electricidad, renovables y fontanería con sello propio",
+      "subtitle": "Más de 30 años instalando en la comarca de l'Anoia. Doméstico, industrial y comercial. Presupuestos sin compromiso.",
+      "ctaPrimary": "Pedir presupuesto",
+      "ctaSecondary": "Ver servicios"
+    },
+    "stats": [
+      { "value": "30+", "label": "Años de experiencia" },
+      { "value": "500+", "label": "Proyectos realizados" },
+      { "value": "5", "label": "Especialidades" },
+      { "value": "100%", "label": "Instaladores autorizados" }
+    ],
+    "intro": {
+      "eyebrow": "Quiénes somos",
+      "title": "Profesionalidad, seriedad y eficacia",
+      "body": "Desde 1991 realizamos trabajos de instalación, reparación y mantenimiento en los ámbitos doméstico, industrial y comercial. Apostamos por las energías alternativas y el ahorro energético, con proyectos basados en iluminación LED, geotermia, energía eólica y placas solares."
+    },
+    "services": {
+      "eyebrow": "Qué hacemos",
+      "title": "Servicios técnicos integrales",
+      "subtitle": "Un único equipo para todas las instalaciones de su vivienda, comercio o nave industrial.",
+      "items": [
+        {
+          "icon": "bolt",
+          "title": "Electricidad",
+          "body": "Instalaciones, reformas, boletines, cuadros y sistemas de iluminación LED."
+        },
+        {
+          "icon": "sun",
+          "title": "Energías renovables",
+          "body": "Placas solares fotovoltaicas y térmicas, geotermia, biomasa y minieólica."
+        },
+        {
+          "icon": "drop",
+          "title": "Fontanería",
+          "body": "Tuberías, ACS, saneamiento e instalaciones de agua para viviendas y locales."
+        },
+        {
+          "icon": "snowflake",
+          "title": "Climatización",
+          "body": "Calefacción, aire acondicionado y bombas de calor con mantenimiento incluido."
+        },
+        {
+          "icon": "flame",
+          "title": "Gas y petrolíferas",
+          "body": "Instalaciones de gas (categoría IG-A) y petrolíferas (IP-2) certificadas."
+        },
+        {
+          "icon": "wrench",
+          "title": "Mantenimiento",
+          "body": "Servicio integral para que sus instalaciones estén siempre en perfectas condiciones."
+        }
+      ]
+    },
+    "renewables": {
+      "eyebrow": "Energías alternativas",
+      "title": "Apostamos por el ahorro y la sostenibilidad",
+      "body": "Garantizamos una calidad inmejorable en cada proyecto de energías renovables, con atención personalizada en todo momento.",
+      "items": [
+        { "title": "Geotermia", "body": "Aprovechamiento de la temperatura del subsuelo. Menor dependencia de los combustibles fósiles y menor impacto ambiental." },
+        { "title": "Minieólica", "body": "Pequeños aerogeneradores para bombeo de agua o electrificación en áreas rurales y aisladas, con bajo impacto visual y ambiental." },
+        { "title": "Energía solar", "body": "Placas fotovoltaicas para autoconsumo eléctrico y térmicas para la producción de agua caliente sanitaria (ACS)." },
+        { "title": "Biomasa", "body": "Calderas y estufas alimentadas con pellet, huesos de aceituna o residuos forestales." }
+      ]
+    },
+    "cta": {
+      "title": "¿Tiene un proyecto? Pídanos presupuesto",
+      "body": "Estudiamos su caso y le proponemos la mejor solución técnica sin compromiso.",
+      "button": "Contactar ahora"
+    }
+  },
+  "services": {
+    "title": "Servicios de instalación | Pep Bové",
+    "metaDesc": "Electricidad, energías renovables, fontanería, climatización, gas e instalaciones petrolíferas. Todos nuestros servicios en Igualada.",
+    "hero": {
+      "eyebrow": "Servicios",
+      "title": "Todo lo que necesita, bajo un mismo techo",
+      "subtitle": "Somos instaladores autorizados en cinco especialidades. Conozca en detalle qué podemos hacer por su proyecto."
+    },
+    "blocks": [
+      {
+        "title": "Electricidad (categoría especialista)",
+        "body": "Instalaciones nuevas, reformas integrales, boletines, cuadros eléctricos, iluminación LED y sistemas domóticos. Trabajamos para particulares, despachos, locales comerciales y naves industriales, tanto en obra nueva como en rehabilitaciones.",
+        "bullets": [
+          "Instalaciones eléctricas domésticas e industriales",
+          "Boletines y legalizaciones",
+          "Iluminación LED y sistemas de ahorro",
+          "Cuadros eléctricos y sub-cuadros",
+          "Domótica y automatización"
+        ]
+      },
+      {
+        "title": "Energías renovables",
+        "body": "Apostamos fuerte por las energías renovables. Ofrecemos un amplio catálogo de servicios basados en el uso de energías limpias, con proyectos completos desde el estudio de viabilidad hasta la puesta en marcha.",
+        "bullets": [
+          "Placas solares fotovoltaicas para autoconsumo",
+          "Solar térmica para agua caliente sanitaria",
+          "Bombas de calor aerotérmicas y geotérmicas",
+          "Calderas y estufas de biomasa",
+          "Minieólica para bombeo o electrificación"
+        ]
+      },
+      {
+        "title": "Fontanería y agua",
+        "body": "Renovar las tuberías viejas, reformar el baño, instalar un nuevo sistema de calefacción o ACS. Tenemos la solución a todas sus necesidades.",
+        "bullets": [
+          "Instalaciones de agua sanitaria",
+          "Saneamiento y evacuación",
+          "Reparación de fugas y averías",
+          "Renovación de baños y cocinas"
+        ]
+      },
+      {
+        "title": "Climatización",
+        "body": "Calefacción y aire acondicionado para viviendas, oficinas y naves industriales. Mantenimiento preventivo y correctivo para todos los sistemas.",
+        "bullets": [
+          "Aire acondicionado split, multisplit y conductos",
+          "Calefacción por radiadores y suelo radiante",
+          "Bombas de calor de alta eficiencia",
+          "Mantenimientos anuales certificados"
+        ]
+      },
+      {
+        "title": "Gas y petrolíferas",
+        "body": "Instalaciones certificadas según normativa, con todas las garantías de seguridad y boletines en regla.",
+        "bullets": [
+          "Instalaciones de gas (categoría IG-A)",
+          "Instalaciones petrolíferas (categoría IP-2)",
+          "Mantenimiento y revisiones periódicas"
+        ]
+      },
+      {
+        "title": "Mantenimiento",
+        "body": "Servicio integral de mantenimiento para que sus instalaciones estén siempre en perfectas condiciones. Ofrecemos mantenimiento preventivo y correctivo para todas las especialidades que trabajamos —electricidad, climatización, fontanería, gas y renovables—, con revisiones periódicas, contratos a medida y atención rápida ante cualquier avería. Nos encargamos de que su vivienda, comercio o nave industrial funcione sin imprevistos a lo largo del año.",
+        "bullets": [
+          "Mantenimiento preventivo de instalaciones eléctricas",
+          "Revisiones periódicas de gas y petrolíferas",
+          "Mantenimiento de climatización y bombas de calor",
+          "Inspección de placas solares y renovables",
+          "Reparación de averías y atención urgente",
+          "Contratos de mantenimiento a medida"
+        ]
+      }
+    ],
+    "credentials": {
+      "title": "Instaladores autorizados",
+      "body": "Disponemos de todas las certificaciones oficiales para garantizar el cumplimiento normativo en cada proyecto.",
+      "items": [
+        "Instalaciones eléctricas · categoría especialista",
+        "Gas · categoría IG-A",
+        "Instalaciones térmicas y de climatización",
+        "Instalaciones de agua",
+        "Instalaciones petrolíferas · categoría IP-2"
+      ]
+    }
+  },
+  "projects": {
+    "title": "Proyectos | Pep Bové",
+    "metaDesc": "Galería de trabajos e instalaciones realizadas por Pep Bové Instal·lacions en Igualada y l'Anoia.",
+    "hero": {
+      "eyebrow": "Proyectos",
+      "title": "Trabajos que hablan por nosotros",
+      "subtitle": "Una selección de instalaciones ejecutadas por nuestro equipo. Cada proyecto, una solución a medida."
+    },
+    "categories": {
+      "all": "Todos",
+      "electric": "Electricidad",
+      "renewables": "Renovables",
+      "plumbing": "Fontanería",
+      "climate": "Climatización"
+    },
+    "items": [
+      { "title": "Instalación eléctrica industrial", "category": "electric", "image": "/images/projects/p1.jpg" },
+      { "title": "Cuadro eléctrico a medida", "category": "electric", "image": "/images/projects/p2.jpg" },
+      { "title": "Reforma eléctrica integral", "category": "electric", "image": "/images/projects/p3.jpg" },
+      { "title": "Instalación doméstica", "category": "electric", "image": "/images/projects/p4.jpg" },
+      { "title": "Cableado estructurado", "category": "electric", "image": "/images/projects/p5.jpg" },
+      { "title": "Placas solares fotovoltaicas", "category": "renewables", "image": "/images/projects/p6.jpg" }
+    ]
+  },
+  "contact": {
+    "title": "Contacto | Pep Bové Instal·lacions",
+    "metaDesc": "Contacte con Pep Bové Instal·lacions en Igualada. Presupuestos sin compromiso para sus instalaciones eléctricas y renovables.",
+    "hero": {
+      "eyebrow": "Contacto",
+      "title": "Hablemos de su proyecto",
+      "subtitle": "Pídanos un presupuesto sin compromiso. Le asesoraremos personalmente."
+    },
+    "about": {
+      "eyebrow": "Nosotros",
+      "title": "Una empresa de confianza desde 1991",
+      "body1": "Pep Bové Instal·lacions (BOMAR INSTAL·LADOR, S.L.) es una empresa familiar con sede en Igualada. Desde hace más de tres décadas ofrecemos un servicio integral de instalaciones para los sectores doméstico, industrial y comercial.",
+      "body2": "Las claves de nuestro éxito son la profesionalidad, la seriedad y la eficacia. Trabajamos con las tecnologías más modernas y con un personal altamente cualificado para ofrecer siempre la mejor solución."
+    },
+    "form": {
+      "title": "Escríbanos",
+      "name": "Nombre",
+      "surname": "Apellidos",
+      "phone": "Teléfono",
+      "email": "Correo electrónico",
+      "subject": "Asunto",
+      "message": "Cuéntenos su proyecto",
+      "consentBefore": "He leído y acepto la ",
+      "consentLink": "política de privacidad",
+      "submit": "Enviar mensaje"
+    },
+    "info": {
+      "phoneLabel": "Llámenos",
+      "emailLabel": "Escríbanos",
+      "addressLabel": "Visítenos",
+      "hoursLabel": "Horario",
+      "hoursValue": "Lunes a Viernes · 8:00 – 18:00"
+    },
+    "privacy": {
+      "title": "Política de privacidad",
+      "close": "Cerrar",
+      "html": "<p>De acuerdo con lo establecido en el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD), le informamos de lo siguiente:</p><h3>Responsable del tratamiento</h3><p><strong>BOMAR INSTAL·LADOR, S.L.</strong> (Pep Bové Instal·lacions)<br>C/ Sant Francesc d'Assís, 25 — 08700 Igualada (Barcelona)<br>Teléfono: 938 03 07 86<br>Correo: info@pepboveinstallacions.com</p><h3>Finalidad del tratamiento</h3><p>Los datos personales que nos facilite a través de este formulario serán tratados con la única finalidad de atender su consulta o solicitud de presupuesto, gestionar la relación comercial y, en su caso, prestar el servicio solicitado.</p><h3>Legitimación</h3><p>La base legal para el tratamiento de sus datos es su consentimiento expreso, otorgado al marcar la casilla de aceptación, así como la ejecución de medidas precontractuales a petición suya.</p><h3>Destinatarios</h3><p>No se cederán datos a terceros, salvo por obligación legal. Los servidores y proveedores tecnológicos que dan soporte a este sitio actúan como encargados del tratamiento y están ubicados dentro del Espacio Económico Europeo.</p><h3>Conservación</h3><p>Los datos se conservarán durante el tiempo necesario para atender su solicitud y, posteriormente, durante los plazos legalmente exigibles.</p><h3>Derechos</h3><p>Puede ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad enviando un correo a <a href=\"mailto:info@pepboveinstallacions.com\">info@pepboveinstallacions.com</a>, indicando en el asunto «Protección de datos». También tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (www.aepd.es).</p>"
+    }
+  }
+}
