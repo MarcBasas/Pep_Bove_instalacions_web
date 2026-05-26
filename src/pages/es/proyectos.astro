@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import CircuitLines from '../../components/CircuitLines.astro';
-import { t, routes, type Lang } from '../../i18n';
+import { t, routes, withBase, type Lang } from '../../i18n';
 
 const lang: Lang = 'es';
 const dict = t(lang);
@@ -10,7 +10,7 @@ const r = routes[lang];
 const page = dict.projects;
 ---
 
-<Base lang={lang} title={page.title} description={page.metaDesc} current="projects" altPath="/projectes">
+<Base lang={lang} title={page.title} description={page.metaDesc} current="projects" altPath={routes.ca.projects}>
   <section class="page-hero section-dark">
     <div class="container">
       <span class="eyebrow">{page.hero.eyebrow}</span>
@@ -34,7 +34,7 @@ const page = dict.projects;
         {page.items.map((item) => (
           <article class="card" data-category={item.category}>
             <div class="card-media">
-              <img src={item.image} alt={item.title} loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-image')" />
+              <img src={withBase(item.image)} alt={item.title} loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('no-image')" />
               <div class="card-placeholder" aria-hidden="true">
                 <Icon name="bolt" size={48} />
               </div>

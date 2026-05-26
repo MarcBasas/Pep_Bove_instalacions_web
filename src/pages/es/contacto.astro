@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import CircuitLines from '../../components/CircuitLines.astro';
 import PrivacyModal from '../../components/PrivacyModal.astro';
-import { t, type Lang } from '../../i18n';
+import { t, routes, type Lang } from '../../i18n';
 
 const lang: Lang = 'es';
 const dict = t(lang);
@@ -14,7 +14,7 @@ const mapsQuery = encodeURIComponent(`${c.name}, ${c.address}, ${c.city}, ${c.re
 const mapsSrc = `https://www.google.com/maps?q=${mapsQuery}&output=embed`;
 ---
 
-<Base lang={lang} title={page.title} description={page.metaDesc} current="contact" altPath="/contacte">
+<Base lang={lang} title={page.title} description={page.metaDesc} current="contact" altPath={routes.ca.contact}>
   <section class="page-hero section-dark">
     <div class="container">
       <span class="eyebrow">{page.hero.eyebrow}</span>

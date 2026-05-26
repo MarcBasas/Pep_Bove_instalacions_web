@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import CircuitLines from '../../components/CircuitLines.astro';
-import { t, routes, type Lang } from '../../i18n';
+import { t, routes, withBase, type Lang } from '../../i18n';
 
 const lang: Lang = 'es';
 const dict = t(lang);
@@ -16,10 +16,10 @@ const blockImages = [
   '/images/services/climatizacion.webp',
   '/images/services/gas_petroleo.webp',
   '/images/services/mantenimiento.webp',
-];
+].map(withBase);
 ---
 
-<Base lang={lang} title={page.title} description={page.metaDesc} current="services" altPath="/serveis">
+<Base lang={lang} title={page.title} description={page.metaDesc} current="services" altPath={routes.ca.services}>
   <section class="page-hero section-dark">
     <div class="container">
       <span class="eyebrow">{page.hero.eyebrow}</span>

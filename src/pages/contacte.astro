@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import CircuitLines from '../components/CircuitLines.astro';
 import PrivacyModal from '../components/PrivacyModal.astro';
-import { t, type Lang } from '../i18n';
+import { t, routes, type Lang } from '../i18n';
 
 const lang: Lang = 'ca';
 const dict = t(lang);
@@ -17,7 +17,7 @@ const MAP_ZOOM = 17;
 const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${c.name}, ${c.address}, ${c.city}`)}`;
 ---
 
-<Base lang={lang} title={page.title} description={page.metaDesc} current="contact" altPath="/es/contacto">
+<Base lang={lang} title={page.title} description={page.metaDesc} current="contact" altPath={routes.es.contact}>
   <!-- HERO -->
   <section class="page-hero section-dark">
     <div class="container">
